@@ -73,7 +73,17 @@ public class MyTreeMap<K, V> implements Map<K, V> {
 		
 		// the actual search
         // TODO: Fill this in.
-        return null;
+        Node currNode = root;
+        while(currNode != null){
+            if(equals(currNode.key, target)){
+                return currNode;
+            }else if (k.compareTo(currNode.key) < 0){
+                currNode = currNode.left;
+            }else{
+                currNode = currNode.right;
+            }
+        }
+        return currNode;
 	}
 
 	/**
@@ -94,6 +104,19 @@ public class MyTreeMap<K, V> implements Map<K, V> {
 	public boolean containsValue(Object target) {
 		return false;
 	}
+    
+    public boolean helperContainsValue(Object target, Node curr){
+        if(equals(target, curr.value)){
+            return true;
+        }
+        if(curr.left != null && helperContainsValue(target, curr.left)){
+            return true;
+        }
+        if(curr.right != null && helperContainsValue(target, curr.right)){
+            return true;
+        }
+        return false;
+    }
 
 	@Override
 	public Set<Map.Entry<K, V>> entrySet() {
